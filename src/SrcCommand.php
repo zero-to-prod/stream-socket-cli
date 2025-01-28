@@ -1,6 +1,6 @@
 <?php
 
-namespace Zerotoprod\:namespace;
+namespace Zerotoprod\StreamSocketCli;
 
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -13,11 +13,11 @@ use Symfony\Component\Console\Output\OutputInterface;
 )]
 class SrcCommand extends Command
 {
-    public const signature = ':slug:src';
+    public const signature = 'stream-socket-cli:src';
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $output->writeln('https://github.com/zero-to-prod/:slug');
+        $output->writeln('https://github.com/zero-to-prod/stream-socket-cli');
 
         return Command::SUCCESS;
     }
