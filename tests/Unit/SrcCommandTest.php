@@ -6,7 +6,7 @@ use PHPUnit\Framework\Attributes\Test;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
 use Tests\TestCase;
-use Zerotoprod\:namespace\SrcCommand;
+use Zerotoprod\StreamSocketCli\SrcCommand;
 
 class SrcCommandTest extends TestCase
 {
