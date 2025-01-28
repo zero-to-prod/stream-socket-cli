@@ -1,14 +1,14 @@
 {
-  "name": "zero-to-prod/:slug",
-  "description": ":description",
+  "name": "zero-to-prod/stream-socket-cli",
+  "description": "A CLI for a stream socket.",
   "license": "MIT",
   "type": "library",
   "keywords": [
     "zero-to-prod",
-    ":slug"
+    "stream-socket-cli"
   ],
   "readme": "./README.md",
-  "time": ":time",
+  "time": "2025-01-28",
   "authors": [
     {
       "name": "David Smith",
@@ -17,13 +17,13 @@
       "role": "maintainer"
     }
   ],
-  "homepage": "https://github.com/zero-to-prod/:slug",
+  "homepage": "https://github.com/zero-to-prod/stream-socket-cli",
   "support": {
     "email": "dave0016@gmail.com",
-    "issues": "https://github.com/zero-to-prod/:slug/issues",
-    "source": "https://github.com/zero-to-prod/:slug",
-    "docs": "https://zero-to-prod.github.io/:slug/",
-    "security": "https://github.com/zero-to-prod/:slug/blob/main/SECURITY.md"
+    "issues": "https://github.com/zero-to-prod/stream-socket-cli/issues",
+    "source": "https://github.com/zero-to-prod/stream-socket-cli",
+    "docs": "https://zero-to-prod.github.io/stream-socket-cli/",
+    "security": "https://github.com/zero-to-prod/stream-socket-cli/blob/main/SECURITY.md"
   },
   "funding": [
     {
@@ -34,15 +34,16 @@
   "require": {
     "php": ">=8.1",
     "ext-json": "*",
-    "symfony/console": "^7.2"
+    "symfony/console": "^7.2",
+    "zero-to-prod/stream-socket": "^81.0"
   },
   "autoload": {
     "psr-4": {
-      "Zerotoprod\\:namespace\\": "src/"
+      "Zerotoprod\\StreamSocketCli\\": "src/"
     }
   },
   "bin": [
-    "bin/:slug"
+    "bin/stream-socket-cli"
   ],
   "require-dev": {
     "phpunit/phpunit": "*"
