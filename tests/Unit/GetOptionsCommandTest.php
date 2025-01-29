@@ -8,8 +8,6 @@ use Symfony\Component\Console\Tester\CommandTester;
 use Tests\TestCase;
 use Zerotoprod\StreamSocketCli\GetOptions\GetOptionsArguments;
 use Zerotoprod\StreamSocketCli\GetOptions\GetOptionsCommand;
-use Zerotoprod\StreamSocketCli\SendTo\SendToArguments;
-use Zerotoprod\StreamSocketCli\SendTo\SendToCommand;
 
 class GetOptionsCommandTest extends TestCase
 {
