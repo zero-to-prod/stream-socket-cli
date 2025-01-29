@@ -3,6 +3,12 @@
 namespace Zerotoprod\StreamSocketCli;
 
 use Symfony\Component\Console\Application;
+use Zerotoprod\StreamSocketCli\GetOptions\GetOptionsCommand;
+use Zerotoprod\StreamSocketCli\LocalSocketName\LocalSocketNameCommand;
+use Zerotoprod\StreamSocketCli\RemoteSocketName\RemoteSocketNameCommand;
+use Zerotoprod\StreamSocketCli\SendTo\SendToCommand;
+use Zerotoprod\StreamSocketCli\Src\SrcCommand;
+use Zerotoprod\StreamSocketCli\SupportsLock\SupportsLockCommand;
 
 class StreamSocketCli
 {
