@@ -1,6 +1,6 @@
 <?php
 
-namespace Zerotoprod\StreamSocketCli;
+namespace Zerotoprod\StreamSocketCli\GetParams;
 
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -16,18 +16,20 @@ use Zerotoprod\StreamSocket\StreamSocket;
 class GetParamsCommand extends Command
 {
     public const signature = 'stream-socket-cli:get-params';
-    public const url = 'url';
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
+        $Args = GetParamsArguments::from($input->getArguments());
+
         $SocketClient = StreamSocket::client(
-            $input->getArgument(self::url),
+            $Args->url,
             30,
             STREAM_CLIENT_CONNECT,
             stream_context_create()
         );
 
         $output->writeln(json_encode($SocketClient->getParams(), JSON_PRETTY_PRINT));
+
         $SocketClient->close();
 
         return Command::SUCCESS;
@@ -35,6 +37,6 @@ class GetParamsCommand extends Command
 
     public function configure(): void
     {
-        $this->addArgument(self::url, InputArgument::REQUIRED, 'The URL to connect to');
+        $this->addArgument(GetParamsArguments::url, InputArgument::REQUIRED, 'The URL to connect to');
     }
 }
