@@ -16,19 +16,55 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: docker login
-        run: echo "${{ secrets.DOCKERHUB_PASSWORD }}" | docker login -u "davidsmith3" --password-stdin
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+        with:
+          version: latest
+          buildkitd-flags: --debug
 
-      - name: docker/setup-qemu-action@v3
+      - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
 
-      - name: docker/setup-buildx-action@v3
-        uses: docker/setup-buildx-action@v3
+      - name: Login to DockerHub
+        uses: docker/login-action@v3
+        with:
+          username: davidsmith3
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
 
-      - name: docker buildx build
+      - name: Get version
+        id: get_version
+        run: echo "VERSION=${GITHUB_SHA::7}" >> $GITHUB_ENV
+
+      - name: Build and push
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: |
+            davidsmith3/stream-socket-cli:latest
+            davidsmith3/stream-socket-cli:${{ env.VERSION }}
+          cache-from: type=registry,ref=davidsmith3/stream-socket-cli:buildcache
+          cache-to: type=registry,ref=davidsmith3/stream-socket-cli:buildcache,mode=max
+          build-args: |
+            NODE_ENV=production
+          labels: |
+            org.opencontainers.image.source=${{ github.event.repository.html_url }}
+            org.opencontainers.image.revision=${{ github.sha }}
+            org.opencontainers.image.created=${{ github.event.repository.updated_at }}
+
+      - name: Scan for vulnerabilities
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: 'davidsmith3/stream-socket-cli:${{ env.VERSION }}'
+          format: 'table'
+          exit-code: '1'
+          ignore-unfixed: true
+          vuln-type: 'os,library'
+          severity: 'CRITICAL,HIGH'
+
+      - name: Check image size
         run: |
-          docker buildx build \
-            --platform linux/amd64,linux/arm64 \
-            -t "davidsmith3/stream-socket-cli" \
-            --push \
-            .
+          docker pull davidsmith3/stream-socket-cli:${{ env.VERSION }}
+          echo "Image size details:"
+          docker image inspect davidsmith3/stream-socket-cli:${{ env.VERSION }} --format='{{.Size | printf "%.2f"}}MB'

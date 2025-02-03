@@ -1,23 +1,24 @@
-FROM php:8.2-cli AS builder
+FROM php:8.2-alpine AS builder
 
 WORKDIR /app
 
-RUN apt-get update && apt-get install -y --no-install-recommends \
+RUN apk add --no-cache \
     git \
-    unzip \
-  && rm -rf /var/lib/apt/lists/*
+    unzip
 
-COPY . /app
+COPY composer.json /app/
 
 RUN curl -sS https://getcomposer.org/installer | php -- \
     --install-dir=/usr/local/bin \
     --filename=composer
 
-RUN composer install
+RUN composer install --no-dev --prefer-dist --optimize-autoloader --no-interaction
+
+COPY . /app
 
 RUN chmod +x /app/bin/stream-socket-cli
 
-FROM php:8.2-cli
+FROM php:8.2-alpine
 
 WORKDIR /app
 
