@@ -44,8 +44,6 @@ jobs:
           tags: |
             davidsmith3/stream-socket-cli:latest
             davidsmith3/stream-socket-cli:${{ env.VERSION }}
-          cache-from: type=registry,ref=davidsmith3/stream-socket-cli:buildcache
-          cache-to: type=registry,ref=davidsmith3/stream-socket-cli:buildcache,mode=max
           build-args: |
             NODE_ENV=production
           labels: |
