@@ -9,12 +9,18 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Zerotoprod\StreamSocket\StreamSocket;
 
+/**
+ * @link https://github.com/zero-to-prod/stream-socket-cli
+ */
 #[AsCommand(
     name: SupportsLockCommand::signature,
     description: 'Tells whether the stream supports locking. Returns the url for true, otherwise null.'
 )]
 class SupportsLockCommand extends Command
 {
+    /**
+     * @link https://github.com/zero-to-prod/stream-socket-cli
+     */
     public const signature = 'stream-socket-cli:supports-lock';
 
     protected function execute(InputInterface $input, OutputInterface $output): int
@@ -35,6 +41,9 @@ class SupportsLockCommand extends Command
         return Command::SUCCESS;
     }
 
+    /**
+     * @link https://github.com/zero-to-prod/stream-socket-cli
+     */
     public function configure(): void
     {
         $this->addArgument(SupportsLockArguments::url, InputArgument::REQUIRED, 'The URL to connect to');

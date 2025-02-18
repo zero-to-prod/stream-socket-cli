@@ -9,12 +9,18 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Zerotoprod\StreamSocket\StreamSocket;
 
+/**
+ * @link https://github.com/zero-to-prod/stream-socket-cli
+ */
 #[AsCommand(
     name: GetParamsCommand::signature,
     description: 'Retrieve params for a stream/ wrapper/ context'
 )]
 class GetParamsCommand extends Command
 {
+    /**
+     * @link https://github.com/zero-to-prod/stream-socket-cli
+     */
     public const signature = 'stream-socket-cli:get-params';
 
     protected function execute(InputInterface $input, OutputInterface $output): int
@@ -35,6 +41,9 @@ class GetParamsCommand extends Command
         return Command::SUCCESS;
     }
 
+    /**
+     * @link https://github.com/zero-to-prod/stream-socket-cli
+     */
     public function configure(): void
     {
         $this->addArgument(GetParamsArguments::url, InputArgument::REQUIRED, 'The URL to connect to');

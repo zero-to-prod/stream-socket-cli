@@ -10,8 +10,16 @@ use Zerotoprod\StreamSocketCli\SendTo\SendToCommand;
 use Zerotoprod\StreamSocketCli\Src\SrcCommand;
 use Zerotoprod\StreamSocketCli\SupportsLock\SupportsLockCommand;
 
+/**
+ * A CLI for a stream socket.
+ *
+ * @link https://github.com/zero-to-prod/stream-socket-cli
+ */
 class StreamSocketCli
 {
+    /**
+     * @link https://github.com/zero-to-prod/stream-socket-cli
+     */
     public static function register(Application $Application): void
     {
         $Application->add(new SrcCommand());

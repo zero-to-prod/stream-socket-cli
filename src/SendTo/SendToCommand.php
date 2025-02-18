@@ -10,12 +10,18 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Zerotoprod\StreamSocket\StreamSocket;
 
+/**
+ * @link https://github.com/zero-to-prod/stream-socket-cli
+ */
 #[AsCommand(
     name: SendToCommand::signature,
     description: 'Sends a message to a socket, whether it is connected or not'
 )]
 class SendToCommand extends Command
 {
+    /**
+     * @link https://github.com/zero-to-prod/stream-socket-cli
+     */
     public const signature = 'stream-socket-cli:send-to';
 
     protected function execute(InputInterface $input, OutputInterface $output): int
@@ -44,6 +50,9 @@ class SendToCommand extends Command
         return Command::SUCCESS;
     }
 
+    /**
+     * @link https://github.com/zero-to-prod/stream-socket-cli
+     */
     public function configure(): void
     {
         $this->addArgument(SendToArguments::url, InputArgument::REQUIRED, 'The URL to connect to');
