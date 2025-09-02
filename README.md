@@ -18,7 +18,16 @@
 - [Introduction](#introduction)
 - [Requirements](#requirements)
 - [Installation](#installation)
+- [Documentation Publishing](#documentation-publishing)
+    - [Automatic Documentation Publishing](#automatic-documentation-publishing)
 - [Usage](#usage)
+    - [Available Commands](#available-commands)
+        - [`stream-socket-cli:src`](#stream-socket-clisrc)
+        - [`stream-socket-cli:remote-socket-name`](#stream-socket-cliremote-socket-name)
+        - [`stream-socket-cli:local-socket-name`](#stream-socket-clilocal-socket-name)
+        - [`stream-socket-cli:send-to`](#stream-socket-clisend-to)
+        - [`stream-socket-cli:supports-lock`](#stream-socket-clisupports-lock)
+        - [`stream-socket-cli:get-options`](#stream-socket-cliget-options)
 - [Docker Image](#docker-image)
 - [Local Development](./LOCAL_DEVELOPMENT.md)
 - [Image Development](./IMAGE_DEVELOPMENT.md)
@@ -40,7 +49,40 @@ Install `Zerotoprod\StreamSocketCli` via [Composer](https://getcomposer.org/):
 composer require zero-to-prod/stream-socket-cli
 ```
 
-This will add the package to your project’s dependencies and create an autoloader entry for it.
+This will add the package to your project's dependencies and create an autoloader entry for it.
+
+## Documentation Publishing
+
+You can publish this README to your local documentation directory.
+
+This can be useful for providing documentation for AI agents.
+
+This can be done using the included script:
+
+```bash
+# Publish to default location (./docs/zero-to-prod/stream-socket-cli)
+vendor/bin/zero-to-prod-stream-socket-cli
+
+# Publish to custom directory
+vendor/bin/zero-to-prod-stream-socket-cli /path/to/your/docs
+```
+
+### Automatic Documentation Publishing
+
+You can automatically publish documentation by adding the following to your `composer.json`:
+
+```json
+{
+    "scripts": {
+        "post-install-cmd": [
+            "zero-to-prod-stream-socket-cli"
+        ],
+        "post-update-cmd": [
+            "zero-to-prod-stream-socket-cli"
+        ]
+    }
+}
+```
 
 ## Usage
 
@@ -48,6 +90,153 @@ Run this command to see the available commands:
 
 ```shell
 vendor/bin/stream-socket-cli list
+```
+
+### Available Commands
+
+#### `stream-socket-cli:src`
+
+Displays the project's GitHub repository URL.
+
+**Usage:**
+```bash
+vendor/bin/stream-socket-cli stream-socket-cli:src
+```
+
+**Example:**
+```bash
+vendor/bin/stream-socket-cli stream-socket-cli:src
+```
+
+**Output:**
+```
+https://github.com/zero-to-prod/stream-socket-cli
+```
+
+#### `stream-socket-cli:remote-socket-name`
+
+Returns the remote socket name for a given URL connection.
+
+**Usage:**
+```bash
+vendor/bin/stream-socket-cli stream-socket-cli:remote-socket-name <url>
+```
+
+**Arguments:**
+- `url` (required): The URL to connect to
+
+**Example:**
+```bash
+vendor/bin/stream-socket-cli stream-socket-cli:remote-socket-name ssl://google.com:443
+```
+
+**Output:**
+```
+74.125.224.102:443
+```
+
+#### `stream-socket-cli:local-socket-name`
+
+Returns the local socket name for a given URL connection.
+
+**Usage:**
+```bash
+vendor/bin/stream-socket-cli stream-socket-cli:local-socket-name <url>
+```
+
+**Arguments:**
+- `url` (required): The URL to connect to
+
+**Example:**
+```bash
+vendor/bin/stream-socket-cli stream-socket-cli:local-socket-name ssl://google.com:443
+```
+
+**Output:**
+```
+192.168.1.100:52345
+```
+
+#### `stream-socket-cli:send-to`
+
+Sends a message to a socket, whether it is connected or not.
+
+**Usage:**
+```bash
+vendor/bin/stream-socket-cli stream-socket-cli:send-to <url> <data> [--flags] [--address]
+```
+
+**Arguments:**
+- `url` (required): The URL to connect to
+- `data` (required): The data to be sent
+
+**Options:**
+- `--flags`: The value of flags can be any combination of the following: STREAM_OO
+- `--address`: The address specified when the socket stream was created will be used unless an alternate address is specified in address. If specified, it must be in dotted quad (or [ipv6]) format
+
+**Example:**
+```bash
+vendor/bin/stream-socket-cli stream-socket-cli:send-to tcp://httpbin.org:80 "GET / HTTP/1.1\r\nHost: httpbin.org\r\n\r\n"
+```
+
+**Output:**
+```
+42
+```
+
+#### `stream-socket-cli:supports-lock`
+
+Tells whether the stream supports locking. Returns the URL for true, otherwise returns an empty string.
+
+**Usage:**
+```bash
+vendor/bin/stream-socket-cli stream-socket-cli:supports-lock <url>
+```
+
+**Arguments:**
+- `url` (required): The URL to connect to
+
+**Example:**
+```bash
+vendor/bin/stream-socket-cli stream-socket-cli:supports-lock ssl://google.com:443
+```
+
+**Output (if supports locking):**
+```
+ssl://google.com:443
+```
+
+**Output (if doesn't support locking):**
+```
+
+```
+
+#### `stream-socket-cli:get-options`
+
+Retrieve options for a stream/wrapper/context.
+
+**Usage:**
+```bash
+vendor/bin/stream-socket-cli stream-socket-cli:get-options <url>
+```
+
+**Arguments:**
+- `url` (required): The URL to connect to
+
+**Example:**
+```bash
+vendor/bin/stream-socket-cli stream-socket-cli:get-options ssl://google.com:443
+```
+
+**Output:**
+```json
+{
+    "ssl": {
+        "peer_name": "google.com",
+        "verify_peer": true,
+        "verify_peer_name": true
+    }
+}
 ```
 
 ## Docker Image
