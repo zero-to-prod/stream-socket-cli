@@ -44,7 +44,8 @@
     }
   },
   "bin": [
-    "bin/stream-socket-cli"
+    "bin/stream-socket-cli",
+    "bin/zero-to-prod-stream-socket-cli"
   ],
   "require-dev": {
     "phpunit/phpunit": "<12.0"
